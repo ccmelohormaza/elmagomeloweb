@@ -1,0 +1,244 @@
+.superior{
+    margin: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.inferior{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cuadro{
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 600px;
+    justify-content: center;/*centra verticalmente  */
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+    margin: 10px 30px;
+    padding: 30px 60px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    
+
+}
+
+.cuadro__title{
+  text-align: center;
+  font-size: 30px;
+  line-height: 1.05;
+  margin: 0 0 10px;
+
+}
+
+
+.forma_de_contacto{
+    display: flex;
+
+    margin-top: 30px;
+    gap:20px;
+    text-decoration: none;
+    color:  #fff;
+    
+}
+
+.icono{
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+
+}
+
+.texto_datos_contacto{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;/*centra verticalmente  */
+
+}
+
+.txt_red_social{
+    font-size: 16px ;
+}
+
+.txt_informacion_red_social{
+    font-size: 20px ;
+}
+
+@media (max-width: 900px){
+  .inferior{
+    flex-direction: column;   /* 👈 ahora van uno debajo del otro */
+    align-items: center;
+  }
+
+  .cuadro{
+    max-width: 92vw;          /* 👈 se adapta al ancho del cel */
+    margin: 10px 0;
+    padding: 22px 18px;       /* 👈 menos padding para que no corte */
+  }
+}
+
+
+
+.notaForm{
+  font-size: 13px;
+  opacity: 0.75;
+  text-align: center;
+  margin: 0;
+}
+
+
+/* --- FIX responsive (por esto "se pierde" en pantalla pequeña) --- */
+@media (max-width: 1200px){
+  .inferior{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cuadro{
+    min-width: auto;        /* 🔥 esto evita que se salga */
+    width: min(92vw, 650px);/* se adapta */
+    padding: 24px 22px;
+    margin: 12px 0;
+  }
+}
+
+
+/* =========================
+   CONTACTO - MÓVIL
+========================= */
+@media (max-width: 900px){
+
+  /* bloque superior: que no se pegue a los lados */
+  .superior{
+    margin: 26px 14px;
+    text-align: center;
+  }
+
+  .superior p{
+    margin: 0 auto;
+    max-width: 92vw;
+  }
+
+  /* los cuadros uno debajo de otro */
+  .inferior{
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 0 12px;
+  }
+
+  /* caja principal */
+  .cuadro{
+    width: 100%;
+    max-width: 520px;
+    margin: 0;
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  /* títulos dentro de cuadros */
+  .cuadro__title,
+  #contactTitle{
+    text-align: center;
+    font-size: 24px;
+    margin: 0 0 12px;
+    letter-spacing: 1px;
+  }
+
+  /* ===== CONTACTO DIRECTO ===== */
+  .forma_de_contacto{
+    align-items: center;
+    gap: 14px;
+    margin-top: 18px;
+    padding: 12px 12px;
+    border-radius: 14px;
+
+    /* mejora tacto */
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .icono{
+    width: 34px;
+    height: 34px;
+    margin-top: 0;
+    flex-shrink: 0;
+  }
+
+  .texto_datos_contacto{
+    min-width: 0; /* clave para que el texto haga wrap */
+  }
+
+  .txt_red_social{
+    font-size: 14px;
+    opacity: 0.9;
+  }
+
+  .txt_informacion_red_social{
+    font-size: 16px;
+    word-break: break-word;   /* rompe email largo */
+    overflow-wrap: anywhere;  /* asegura wrap */
+  }
+
+  /* ===== FORM (booking__form) ===== */
+  .booking__form{
+    margin-top: 14px;
+    gap: 12px;
+  }
+
+  .field label{
+    font-size: 14px;
+  }
+
+  .field input,
+  .field textarea,
+  .field select{
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 12px;
+    font-size: 16px; /* evita zoom raro en iPhone */
+  }
+
+  .help{
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  /* botón */
+  .btn-submit{
+    width: 100%;
+    padding: 14px 14px;
+    font-size: 15px;
+  }
+
+  /* custom select: que no se salga */
+  .custom-select{
+    width: 100%;
+  }
+
+  .custom-select__trigger{
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 12px;
+  }
+
+  .custom-select__panel{
+    width: 100%;
+    max-height: 240px;
+    overflow: auto;
+  }
+
+  /* texto final */
+  .notaForm{
+    margin-top: 6px;
+    font-size: 12px;
+    text-align: center;
+    opacity: 0.8;
+  }
+}
+
