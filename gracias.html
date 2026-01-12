@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reserva recibida - El Mago Melo</title>
+  <link rel="icon" href="logo.webp" type="image/webp">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --text: #e9eef5;
+      --muted: rgba(233,238,245,0.75);
+      --muted2: rgba(233,238,245,0.65);
+      --stroke: rgba(255,255,255,0.10);
+      --panel: rgba(255,255,255,0.06);
+      --panel2: rgba(0,0,0,0.25);
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --fs-sm: 14px;
+      --fs-md: 16px;
+    }
+
+    *{ box-sizing: border-box; }
+
+    body{
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .thanks-wrap{
+      max-width: 980px;
+      margin: 120px auto 80px;
+      padding: 0 18px;
+    }
+
+    .thanks-card{
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .thanks-title{
+      margin: 0 0 12px;
+      font-family: "Bebas Neue", system-ui, sans-serif;
+      letter-spacing: 2px;
+      font-size: 54px;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .lead{
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    .row{
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+    @media (max-width: 820px){
+      .row{ grid-template-columns: 1fr; }
+    }
+
+    .box{
+      background: var(--panel2);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius2);
+      padding: 16px;
+    }
+
+    .label{
+      margin: 0 0 6px;
+      font-size: 16px;
+      color: var(--muted2);
+      line-height: 1.2;
+    }
+
+    .value{
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .amount{
+      margin: 6px 0 0;
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: .2px;
+    }
+
+    .amount--deposit{
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .muted{
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .section-title{
+      margin: 22px 0 10px;
+      font-family: "Bebas Neue", system-ui, sans-serif;
+      letter-spacing: 1px;
+      font-size: 40px;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .pay-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 520px){
+      .pay-grid{ grid-template-columns: 1fr; }
+    }
+
+    .pay-card{
+      display: grid;
+      grid-template-columns: 1fr 140px;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+    }
+    @media (max-width: 520px){
+      .pay-card{ grid-template-columns: 1fr; }
+    }
+
+    .pay-title{
+      font-weight: 800;
+      margin: 0 0 6px;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .pay-number{
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .pay-highlight{ font-weight: 800; }
+
+    .pay-desc{
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .pay-actions{ margin-top: 10px; }
+
+    .copy-btn{
+      display: inline-block;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.10);
+      color: var(--text);
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .copy-btn:hover{ background: rgba(255,255,255,0.14); }
+
+    .qr-btn{
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .qr-img{
+      width: 140px;
+      height: 140px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      object-fit: cover;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .qr-hint{
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .qr-modal{
+      position: fixed;
+      inset: 0;
+      display: none;
+      z-index: 9999;
+    }
+    .qr-modal.is-open{ display: block; }
+
+    .qr-modal__backdrop{
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+    }
+
+    .qr-modal__content{
+      position: relative;
+      max-width: 420px;
+      margin: 8vh auto 0;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      backdrop-filter: blur(10px);
+    }
+    @media (max-width: 520px){
+      .qr-modal__content{ margin: 6vh 14px 0; }
+    }
+
+    .qr-modal__close{
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.10);
+      color: var(--text);
+      border-radius: 10px;
+      width: 38px;
+      height: 38px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .qr-modal__title{
+      margin: 4px 0 10px;
+      font-weight: 900;
+      letter-spacing: .3px;
+      text-align: center;
+    }
+
+    .qr-modal__img{
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: block;
+    }
+
+    .qr-modal__tip{
+      margin: 10px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+      justify-content: center;
+    }
+
+    .cta{
+      display:inline-block;
+      padding: 12px 14px;
+      border-radius: 12px;
+      text-decoration:none;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(0, 173, 239, 0.18);
+      color: var(--text);
+      font-size: var(--fs-sm);
+    }
+
+    .cta.secondary{
+      background: rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 420px){
+      .thanks-card{ padding: 18px; }
+      .thanks-title{ font-size: 44px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="thanks-wrap">
+    <div class="thanks-card">
+      <h1 class="thanks-title">Confirmación de reserva – Adelanto</h1>
+
+      <p class="lead">
+        Tus datos han llegado a nuestra base de datos ✅. Ahora, para <b>confirmar tu reserva</b>, realiza el <b>adelanto</b>.
+      </p>
+
+      <div class="row">
+        <div class="box">
+          <p class="label">Servicio seleccionado</p>
+          <p class="value" id="servicioTitle">Servicio</p>
+
+          <p class="label" style="margin-top:14px;">Precio del servicio</p>
+          <p class="amount" id="precio">Por confirmar</p>
+
+          <p class="muted">
+            *Si tu servicio es “Precio negociable”, o si el evento es fuera de Popayán, te escribiré para confirmar el valor final según logística y ciudad.
+          </p>
+        </div>
+
+        <div class="box">
+          <p class="label">Adelanto mínimo para separar</p>
+          <p class="amount amount--deposit" id="adelanto">Por definir</p>
+
+          <p class="muted" style="margin-top:10px;">
+            Una vez realices el adelanto, envía el comprobante por WhatsApp para confirmar tu reserva.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="section-title">MEDIOS DE PAGO</h2>
+
+      <div class="pay-grid">
+        <!-- NEQUI -->
+        <div class="pay-card">
+          <div>
+            <p class="pay-title">Nequi</p>
+            <p class="pay-number">Nombre: <span class="pay-highlight">Cristian Melo</span></p>
+            <p class="pay-number">Teléfono: <span id="nequiPhone" class="pay-highlight">3245645231</span></p>
+            <p class="pay-desc">Escanea el QR o copia el número para pagar.</p>
+            <div class="pay-actions">
+              <button class="copy-btn" type="button" onclick="copyOnlyDigitsFromId('nequiPhone')">
+                Copiar número
+              </button>
+            </div>
+          </div>
+
+          <button class="qr-btn" type="button" onclick="openQR('nequi.webp','QR Nequi')">
+            <img class="qr-img" src="nequi.webp" alt="QR Nequi" />
+            <span class="qr-hint">Toca para ampliar</span>
+          </button>
+        </div>
+
+        <!-- DAVIVIENDA -->
+        <div class="pay-card">
+          <div>
+            <p class="pay-title">Davivienda</p>
+            <p class="pay-number">Cuenta de ahorros: <span id="daviCta" class="pay-highlight">488455936770</span></p>
+            <p class="pay-desc">Transferencia a cuenta de ahorros o escanea el QR.</p>
+            <div class="pay-actions">
+              <button class="copy-btn" type="button" onclick="copyOnlyDigitsFromId('daviCta')">
+                Copiar cuenta
+              </button>
+            </div>
+          </div>
+
+          <button class="qr-btn" type="button" onclick="openQR('Davivienda.webp','QR Davivienda')">
+            <img class="qr-img" src="Davivienda.webp" alt="QR Davivienda" />
+            <span class="qr-hint">Toca para ampliar</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <a class="cta" href="https://wa.me/573245645231" target="_blank" rel="noopener">
+          Confirmar por WhatsApp
+        </a>
+        <a class="cta secondary" href="reservas.html">
+          Hacer otra reserva
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <div class="qr-modal" id="qrModal" aria-hidden="true">
+    <div class="qr-modal__backdrop" onclick="closeQR()"></div>
+
+    <div class="qr-modal__content" role="dialog" aria-modal="true" aria-label="QR ampliado">
+      <button class="qr-modal__close" type="button" onclick="closeQR()" aria-label="Cerrar">✕</button>
+      <p class="qr-modal__title" id="qrModalTitle">QR</p>
+      <img class="qr-modal__img" id="qrModalImg" src="" alt="QR ampliado" />
+      <p class="qr-modal__tip">Si no escanea, sube el brillo de tu pantalla.</p>
+    </div>
+  </div>
+
+  <script>
+    // Copiar solo números
+    function copyOnlyDigitsFromId(id){
+      const el = document.getElementById(id);
+      const raw = (el ? el.textContent : "").trim();
+      const onlyDigits = raw.replace(/\D/g, ""); // quita TODO menos números
+      copyText(onlyDigits);
+    }
+
+    function copyText(text){
+      const clean = (text || "").trim();
+      if (!clean) {
+        alert("No hay números para copiar.");
+        return;
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(clean).then(() => {
+          alert("Copiado: " + clean);
+        }).catch(() => {
+          alert("No se pudo copiar. Copia manualmente: " + clean);
+        });
+      } else {
+        alert("Copia manualmente: " + clean);
+      }
+    }
+
+    // Modal QR
+    function openQR(src, title){
+      const modal = document.getElementById("qrModal");
+      const img = document.getElementById("qrModalImg");
+      const t = document.getElementById("qrModalTitle");
+
+      img.src = src;
+      img.alt = title || "QR ampliado";
+      t.textContent = title || "QR";
+
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeQR(){
+      const modal = document.getElementById("qrModal");
+      const img = document.getElementById("qrModalImg");
+
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      img.src = "";
+      document.body.style.overflow = "";
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeQR();
+    });
+
+    // === Tu lógica de reserva (localStorage) ===
+    const title = localStorage.getItem("reserva_servicio_title") || "Servicio";
+    const precioRaw = localStorage.getItem("reserva_precio") || "Por confirmar";
+    document.getElementById("servicioTitle").textContent = title;
+
+    let precioText = precioRaw;
+
+    if (/^\d+\s*K$/i.test(precioRaw)) {
+      precioText = precioRaw.toUpperCase().replace("K","") + ".000 COP";
+    } else if (/gratis/i.test(precioRaw)) {
+      precioText = "Gratis";
+    } else if (/negociable/i.test(precioRaw)) {
+      precioText = "Precio negociable";
+    } else if (!precioRaw || precioRaw === "Por confirmar") {
+      precioText = "Por confirmar";
+    }
+
+    document.getElementById("precio").textContent = precioText;
+
+    const adelantoEl = document.getElementById("adelanto");
+    if (precioText.includes(".000 COP")) {
+      const num = parseInt(precioText.replace(/[^\d]/g,""), 10);
+      const adelanto = Math.round(num * 0.30);
+      adelantoEl.textContent = adelanto.toLocaleString("es-CO") + " COP (30%)";
+    } else {
+      adelantoEl.textContent = "Se confirma por WhatsApp";
+    }
+  </script>
+</body>
+</html>
