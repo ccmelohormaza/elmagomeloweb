@@ -1,0 +1,634 @@
+
+
+
+
+/* =========================
+   RESERVAS – CUADRO FORMULARIO
+========================= */
+
+/*seccion*/
+.booking{
+  width: 100%;
+  padding: 20px 0px 0px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  position: relative;
+  z-index: 50;
+  
+ 
+}
+
+
+/*cuadro donde esta el formulario*/
+.booking__card{
+
+  width:min(96% ,800px);
+  min-height: 380px; 
+  background: rgba(0, 0, 0, 0.5);border: 2px solid rgba(255, 255, 255, 0.35 );
+  border-radius: 24px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 32px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+
+/*previsualizacion del servicio */
+
+/* =========================
+   PREVIEW SERVICIO SELECCIONADO
+========================= */
+
+#service-preview{
+  margin-bottom: 30px;
+}
+
+.service-preview-card{
+  display: flex;
+  gap: 24px;
+
+  border-radius: 20px;
+  padding: 20px;
+
+  background: rgba(0,0,0,0.55);
+  border: 2px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(6px);
+
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+.service-preview-media{
+  flex: 0 0 220px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.service-preview-media img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-preview-content{
+  flex: 1;
+  color: #fff;
+}
+
+.service-preview-title{
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.service-preview-desc{
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 14px;
+}
+
+.service-preview-info{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.service-preview-badge{
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+
+
+
+
+
+
+
+
+/*formulario*/
+form{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+    align-items: stretch;
+    
+}
+
+
+.field{
+    width: 100%;
+    display: flex;
+    align-self: stretch;
+    flex-direction: column; /* 🔥 esto pone uno debajo del otro */
+    gap: 6px; 
+    
+}
+label{
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+}
+
+
+/*configuracion del selector  y las entradas */
+
+
+select,input,textarea{
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(0,0,0,0.45);
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 10px;
+  outline: none;
+  font-family: inherit;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;   
+}
+
+/*cuando se pasa el maus por el espacio */
+input:hover,select:hover{
+    border: 2px solid #bab8b7; /* naranja */
+  box-shadow: 0 0 8px rgba(182, 182, 182, 0.6);
+}
+
+
+/*cuando se este escribiendo en un espacio  */
+input:focus,select:focus {
+  border: 2px solid #ff8c00; /* naranja */
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+}
+
+
+/* =================================================
+   VALIDACIÓN EN ROJO (SOLO DESPUÉS DE ESCRIBIR)
+================================================= */
+
+/* ❌ ELIMINAMOS reglas genéricas que causaban rojo inicial */
+/* (NO usar input:invalid a secas) */
+
+
+/* ✅ ROJO SOLO para inputs con texto (cuando el usuario escribe algo mal) */
+input[type="text"]:invalid:not(:focus):not(:placeholder-shown),
+input[type="email"]:invalid:not(:focus):not(:placeholder-shown),
+input[type="number"]:invalid:not(:focus):not(:placeholder-shown),
+input[type="tel"]:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: #ff3b3b;
+  box-shadow: 0 0 8px rgba(255, 59, 59, 0.6);
+}
+
+
+
+
+/* =================================================
+   select personalizado desplegable 
+================================================= */
+
+/* =========================
+   SELECT PERSONALIZADO
+========================= */
+
+/* Ocultamos el select nativo pero mantenemos funcionalidad */
+.custom-select select{
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+/* Contenedor */
+.custom-select{
+  position: relative;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Botón que se ve como tu input */
+.custom-select__trigger{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 14px;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(0,0,0,0.45);
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 10px;
+  outline: none;
+  font-family: inherit;
+
+  cursor: pointer;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-select__trigger:hover{
+  border: 2px solid #bab8b7;
+  box-shadow: 0 0 8px rgba(182, 182, 182, 0.6);
+}
+
+.custom-select.is-open .custom-select__trigger,
+.custom-select__trigger:focus{
+  border: 2px solid #ff8c00;
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+}
+
+/* Flechita */
+.custom-select__chev{
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid rgba(255,255,255,0.8);
+  border-bottom: 2px solid rgba(255,255,255,0.8);
+  transform: rotate(45deg);
+  margin-left: 12px;
+  transition: transform 0.2s ease;
+}
+
+.custom-select.is-open .custom-select__chev{
+  transform: rotate(-135deg);
+}
+
+/* Panel (EL “cuadro desplegable” que querías cambiar) */
+.custom-select__panel{
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  z-index: 999999;
+
+  background: rgba(0,0,0,0.92);
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  max-height: 280px;
+  overflow: auto;
+
+  padding: 8px;
+  display: none;
+}
+
+.custom-select.is-open .custom-select__panel{
+  display: block;
+}
+
+/* Opciones */
+.custom-select__option{
+  padding: 12px 12px;
+  border-radius: 10px;
+  color: rgba(255,255,255,0.92);
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.custom-select__option:hover,
+.custom-select__option.is-active{
+  background: rgba(255, 140, 0, 0.18);
+  color: #fff;
+}
+
+.custom-select__option.is-selected{
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.20);
+}
+
+/* Scrollbar (Chrome/Edge) */
+.custom-select__panel::-webkit-scrollbar{
+  width: 10px;
+}
+.custom-select__panel::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.18);
+  border-radius: 999px;
+}
+.custom-select__panel::-webkit-scrollbar-track{
+  background: rgba(255,255,255,0.06);
+  border-radius: 999px;
+}
+
+/* Si el select abre hacia arriba */
+.custom-select.open-up .custom-select__panel{
+  top: auto !important;
+  bottom: calc(100% + 10px);
+}
+
+
+/* =================================================
+   mensajes de ayuda parte inferior del recuadro 
+================================================= */
+small{
+  font-size: 12px;
+  color: #bab8b7;
+}
+
+
+
+
+/* =================================================
+   INPUT NUMBER – quitar flechas <>
+================================================= */
+
+/* Chrome, Edge, Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+
+
+/* =================================================
+   cuando salen opciones de autocompletado AUTOCOMPLETE – forzar fondo oscuro
+================================================= */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px rgba(0,0,0,0.45) inset !important;
+  box-shadow: 0 0 0 1000px rgba(0,0,0,0.45) inset !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+
+/* =========================
+  terminos y condiciones 
+========================= */
+
+/* ====== TÉRMINOS Y CONDICIONES ====== */
+.field--terms{
+  display: flex;
+  align-items: center;
+}
+
+.termsRow{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+/* evita que el checkbox se estire por estilos globales */
+.termsRow input[type="checkbox"]{
+  width: 18px !important;
+  height: 18px !important;
+  flex: 0 0 18px;
+  margin: 0 !important;
+  accent-color: #d89b2b; /* opcional */
+}
+
+.termsLabel{
+  margin: 0;
+  display: inline;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.termsLink{
+  text-decoration: underline;
+  color: #fff;
+}
+
+.termsLink:hover{
+  opacity: 0.85;
+}
+
+
+/* =========================
+   BOTON
+========================= */
+
+/* =========================
+   BOTÓN ENVIAR FORMULARIO
+========================= */
+
+.field--submit{
+  width: 100%;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+
+}
+
+.btn-submit{
+  width: fit-content;
+  padding: 10px 30px;
+  border-radius: 14px;
+
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: inherit;
+
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    rgba(255,140,0,0.9),
+    rgba(216,155,43,0.9)
+  );
+
+  border: 2px solid rgba(255,255,255,0.35);
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.35),
+    inset 0 0 0 rgba(255,255,255,0.2);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+
+    align-self: center; 
+}
+
+/* Hover */
+.btn-submit:hover{
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 35px rgba(0,0,0,0.45),
+    inset 0 0 12px rgba(255,255,255,0.25);
+  filter: brightness(1.05);
+}
+
+/* Active (clic) */
+.btn-submit:active{
+  transform: translateY(0);
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.35);
+}
+
+/* Focus accesible */
+.btn-submit:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255,140,0,0.6),
+    0 16px 35px rgba(0,0,0,0.45);
+}
+
+/* Deshabilitado */
+.btn-submit:disabled{
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.4);
+}
+
+
+
+/* =========================
+   MÓVIL: 1 columna
+========================= */
+@media (max-width: 768px){
+  .service-preview-card{
+    flex-direction: column;   /* imagen arriba, texto abajo */
+    gap: 14px;
+  }
+
+  .service-preview-media{
+    flex: none;
+    min-width: 0;
+    width: 100%;
+    height: 260px;            /* ajusta: 220–320 según te guste */
+    border-radius: 18px;
+  }
+
+  .service-preview-media img{
+    height: 100%;
+    object-fit: cover;        /* si prefieres ver toda la imagen: contain */
+  }
+
+  /* Badges en 2 columnas */
+  .service-preview-badge{
+    flex: 1 1 calc(50% - 10px);
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+
+
+/*solucion no aparece el desplegable */
+
+/* Para que el desplegable no quede tapado */
+.custom-select.is-open{
+  z-index: 2500;
+}
+
+.custom-select__panel{
+  z-index: 99999 !important;
+}
+
+/* Por si algún contenedor está recortando el panel */
+.booking__card,
+.hero_card,
+.reservas,
+.booking{
+  overflow: visible;
+}
+
+
+
+
+/*ULTIMOS AJUSTES FASE 3*/
+/* =====================================
+   FASE 3: Show/Hide con animación
+===================================== */
+.field.is-hidden,
+.is-hidden {
+  display: none !important;
+}
+
+/* Si quieres animación suave, usamos un wrapper interno opcional */
+.field.anim {
+  overflow: hidden;
+}
+
+.field.anim .field__inner {
+  transition: max-height 220ms ease, opacity 220ms ease, transform 220ms ease;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.field.anim.is-visible .field__inner {
+  max-height: 500px; /* suficiente para inputs normales */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Si NO quieres wrapper, igual funciona con .is-hidden (sin animación) */
+
+
+/* =========================
+   FIX: centrado del formulario
+   (por cambio hero__conten -> hero__content)
+========================= */
+
+.hero__conten,
+.hero__content{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.reservas__content{
+  width: 100%;
+}
+
+/* Refuerzo: que el card siempre quede centrado */
+.booking__card{
+  margin: 0 auto;
+}
+
+
+/* =========================
+   FIX: dropdown por encima del footer
+========================= */
+
+/* Asegura que la sección de reservas quede en un nivel superior */
+.reservas,
+.booking,
+.booking__card {
+  position: relative;
+  z-index: 50;
+}
+
+/* El select abierto sube todavía más */
+.custom-select.is-open {
+  position: relative;
+  z-index: 99999;
+}
+
+.custom-select__panel {
+  z-index: 100000 !important;
+}
+
+/* Asegura que el footer no quede por encima */
+.footer {
+  position: relative;
+  z-index: 1;
+}
