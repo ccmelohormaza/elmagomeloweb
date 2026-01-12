@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>El mago Melo</title>
+  <link rel="icon" href="logo.png" type="image/png">
+
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="stylesheet" href="reservas.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
+
+
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="index.html">
+        <img src="logo.png" alt="Logo" class="brand__logo" />
+      </a>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menú" type="button">
+        ☰
+      </button>
+
+      <nav class="menu" id="menu">
+        <a href="index.html" class="menu__link">INICIO</a>
+        <a href="sobre.html" class="menu__link">SOBRE MI</a>
+        <a href="portafolio.html" class="menu__link">PORTAFOLIO</a>
+        <a href="reservas.html" class="menu__link active">RESERVAS</a>
+        <a href="contacto.html" class="menu__link">CONTACTO</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="reservas hero" id="reservas">
+      <div class="hero_card">
+        <div class="hero__content reservas__content">
+          <section class="booking" aria-labelledby="bookingTitle">
+            <div class="booking__card">
+              <h1 id="bookingTitle">RESERVA TU SHOW AQUI</h1>
+
+              <p>
+                Antes de reservar verifica disponibilidad en Agenda. Luego completa la siguiente información para realizar tu reserva.
+              </p>
+
+              <div id="service-preview"></div>
+
+              <form class="booking__form" action="https://formsubmit.co/elmagomelo23@gmail.com" method="POST">
+
+                <!-- Inputs ocultos  -->
+                <input type="hidden" name="_subject" id="subjectField" value="">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                
+                <!-- antes de publicar quita lo que esta comentado y comenta el siguiente input   -->
+                <!--<input type="hidden" name="_next" value="https://tudominio.com/gracias.html">-->
+
+                <!--- <input type="hidden" name="_next" value="https://TUUSUARIO.github.io/TUPROYECTO/gracias.html"> -->
+
+
+                <input type="text" name="_honey" style="display:none">
+
+                
+                <!-- Servicio -->
+                <div class="field">
+                  <label for="servicio">Servicio *</label>
+
+                  <div class="custom-select" data-select>
+                    <select id="servicio" name="Servicio" required>
+                      <option value="" disabled selected>Selecciona un servicio</option>
+                      <option value="magia_cerca_adultos">Show de magia de cerca para adultos</option>
+                      <option value="magia_salon_adultos">Show de magia de salón para adultos</option>
+                      <option value="magia_salon_familiar">Show de magia de salón familiar</option>
+                      <option value="magia_restaurante">Magia de restaurante</option>
+                      <option value="magia_escenario">Magia de escenario</option>
+                      <option value="propuesta_matrimonio">Propuestas de matrimonio con magia</option>
+                      <option value="magia_ferias">Magia para ferias</option>
+                      <option value="show_parejas">Show en parejas (salón / close-up)</option>
+                      <option value="labor_social">Show para labor social</option>
+                    </select>
+
+                    <button type="button" class="custom-select__trigger" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="custom-select__value">Selecciona un servicio</span>
+                      <span class="custom-select__chev" aria-hidden="true"></span>
+                    </button>
+
+                    <div class="custom-select__panel" role="listbox" tabindex="-1"></div>
+                  </div>
+                </div>
+
+                <!-- Nombre -->
+                <div class="field">
+                  <label for="nombre">Persona que realiza la Reserva *</label>
+                  <input id="nombre" name="Nombre del solicitante" type="text" placeholder="Ej: Juan Pérez" required />
+                </div>
+
+                <!-- Restaurante (condicional) -->
+                <div class="field" id="restauranteField" style="display:none;">
+                  <label for="nombre_restaurante">Nombre del restaurante *</label>
+                  <input id="nombre_restaurante" name="Nombre del restaurante o establecimiento" type="text" placeholder="Ej: La Pérgola, Donde Juancho, El Fogón..." />
+                </div>
+
+                <!-- Correo -->
+                <div class="field">
+                  <label for="email">Correo</label>
+                  <input id="email" name="Correo electrónico" type="email" placeholder="usuario@gmail.com" />
+                </div>
+
+                <!-- Teléfono -->
+                <div class="field">
+                  <label for="phone">Número de Teléfono *</label>
+                  <input
+                    id="phone"
+                    name="Teléfono de contacto"
+                    type="tel"
+                    placeholder="Ej: 3245645231"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required
+                  />
+                </div>
+
+                <!-- Ciudad -->
+                <div class="field">
+                  <label for="ciudad">Ciudad *</label>
+
+                  <div class="custom-select" data-select>
+                    <select id="ciudad" name="Ciudad del evento" required>
+                      <option value="" disabled selected>Selecciona una ciudad</option>
+                      <option value="popayan">Popayán</option>
+                      <option value="cali">Cali</option>
+                      <option value="ipiales">Ipiales</option>
+                      <option value="pasto">Pasto</option>
+                      <option value="bogota">Bogotá</option>
+                      <option value="medellin">Medellín</option>
+                      <option value="otra">Otra</option>
+                    </select>
+
+                    <button type="button" class="custom-select__trigger" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="custom-select__value">Selecciona una ciudad</span>
+                      <span class="custom-select__chev" aria-hidden="true"></span>
+                    </button>
+
+                    <div class="custom-select__panel" role="listbox" tabindex="-1"></div>
+                  </div>
+
+                  <small class="help">Nota: si el evento es en otra ciudad, selecciona “Otra”.</small>
+
+                  <small class="help" id="notaViaticos" style="display:none;">
+                    Importante: Para eventos fuera de <b>Popayán</b>, el cliente debe cubrir los viáticos de desplazamiento (transporte, alimentación y, si aplica, hospedaje del mago).
+                  </small>
+                </div>
+
+                <!-- Otra ciudad -->
+                <div class="field" id="otraCiudadField" style="display:none;">
+                  <label for="otra_ciudad">Especifica la ciudad *</label>
+                  <input id="otra_ciudad" name="Ciudad (otra)" type="text" placeholder="Ej: Medellín" />
+                </div>
+
+                <!-- Barrio -->
+                <div class="field">
+                  <label for="barrio">Barrio y/o dirección patoja</label>
+                  <input id="barrio" name="Barrio / Referencia" type="text" placeholder="Ej: Barrio El Modelo" />
+                </div>
+
+                <!-- Dirección -->
+                <div class="field">
+                  <label for="direccion">Dirección *</label>
+                  <input id="direccion" name="Dirección del evento" type="text" placeholder="Ej: Calle 13 # 20-18" required />
+                </div>
+
+                <!-- Fecha -->
+                <div class="field" id="fechaField">
+                  <label for="fecha">Fecha del Evento *</label>
+                  <input id="fecha" name="Fecha del evento" type="date" required />
+                </div>
+
+                <!-- Hora -->
+                <div class="field" id="horaField">
+                  <label for="Hora">Hora *</label>
+                  <input id="Hora" name="Hora del evento" type="time" required />
+                </div>
+
+                <!-- Celebración -->
+                <div class="field" id="celebracionField">
+                  <label for="celebracion">¿Qué se celebra?</label>
+                  <input id="celebracion" name="Motivo / Celebración" type="text" placeholder="Ej: Cumpleaños, aniversario, novena..." />
+                </div>
+
+                <!-- Personas (condicional) -->
+                <div class="field" id="personasField" style="display:none;">
+                  <label for="cantidad_personas">Cantidad de personas *</label>
+
+                  <div class="custom-select" data-select>
+                    <select id="cantidad_personas" name="Número de asistentes (rango)">
+                      <option value="" disabled selected>Selecciona un rango</option>
+                    </select>
+
+                    <button type="button" class="custom-select__trigger" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="custom-select__value">Selecciona un rango</span>
+                      <span class="custom-select__chev" aria-hidden="true"></span>
+                    </button>
+
+                    <div class="custom-select__panel" role="listbox" tabindex="-1"></div>
+                  </div>
+                </div>
+
+                <!-- Edad (condicional) -->
+                <div class="field" id="edadField" style="display:none;">
+                  <label for="edad_publico">Edad del público *</label>
+
+                  <div class="custom-select" data-select>
+                    <select id="edad_publico" name="Edad del público (rango)">
+                      <option value="" disabled selected>Selecciona un rango</option>
+                    </select>
+
+                    <button type="button" class="custom-select__trigger" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="custom-select__value">Selecciona un rango</span>
+                      <span class="custom-select__chev" aria-hidden="true"></span>
+                    </button>
+
+                    <div class="custom-select__panel" role="listbox" tabindex="-1"></div>
+                  </div>
+
+                  <small id="notaAdultos" class="help" style="display:none;">
+                    Nota: Cuando el público incluye <b>menores de 18 años</b>, es obligatorio que haya <b>mínimo 2 adultos responsables</b> presentes durante el show.
+                  </small>
+                </div>
+
+                <!-- Discapacidad (condicional) -->
+                <div class="field" id="discapacidadField" style="display:none;">
+                  <label for="tiene_discapacidad">¿Los asistentes presentan alguna discapacidad?</label>
+
+                  <div class="custom-select" data-select>
+                    <select id="tiene_discapacidad" name="¿Asistentes con discapacidad?">
+                      <option value="" disabled selected>Selecciona una opción</option>
+                      <option value="no">No</option>
+                      <option value="si">Sí</option>
+                    </select>
+
+                    <button type="button" class="custom-select__trigger" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="custom-select__value">Selecciona una opción</span>
+                      <span class="custom-select__chev" aria-hidden="true"></span>
+                    </button>
+
+                    <div class="custom-select__panel" role="listbox" tabindex="-1"></div>
+                  </div>
+                </div>
+
+                <!-- Detalle discapacidad -->
+                <div class="field" id="detalleDiscapacidadField" style="display:none;">
+                  <label for="detalle_discapacidad">Por favor descríbelo brevemente</label>
+                  <textarea id="detalle_discapacidad" name="Descripción de la discapacidad" rows="3" placeholder="Ej: Discapacidad visual, auditiva, movilidad reducida, etc."></textarea>
+                </div>
+
+                <!-- Detalle show (condicional) -->
+                <div class="field" id="detalleField" style="display:none;">
+                  <label for="detalle_si_no">¿Desea aparecer algún detalle u objeto durante el show para alguna persona del público? *</label>
+
+                  <div class="custom-select" data-select>
+                    <select id="detalle_si_no" name="¿Detalle u objeto especial durante el show?">
+                      <option value="" disabled selected>Selecciona una opción</option>
+                      <option value="no">No</option>
+                      <option value="si">Sí</option>
+                    </select>
+
+                    <button type="button" class="custom-select__trigger" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="custom-select__value">Selecciona una opción</span>
+                      <span class="custom-select__chev" aria-hidden="true"></span>
+                    </button>
+
+                    <div class="custom-select__panel" role="listbox" tabindex="-1"></div>
+                  </div>
+                </div>
+
+                <!-- ¿Cuál detalle? -->
+                <div class="field" id="detalleCualField" style="display:none;">
+                  <label for="detalle_cual">¿Cuál detalle u objeto?</label>
+                  <input id="detalle_cual" name="Detalle u objeto (descripción)" type="text" placeholder="Ej: Anillo, flores, juguete, recuerdo pequeño..." />
+                  <small class="help">
+                    Importante: el objeto debe ser pequeño, con medidas menores a <b>10 cm x 15 cm</b>.
+                  </small>
+                </div>
+
+                <!-- Términos -->
+                <div class="field field--terms">
+                  <div class="termsRow">
+                    <input type="checkbox" id="acepta_terminos" name="acepta_terminos" required />
+                    <label for="acepta_terminos" class="termsLabel">
+                      Acepto los
+                      <a href="terminos.html" class="termsLink" target="_blank" rel="noopener">términos y condiciones</a>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field field--submit">
+                  <button type="submit" class="btn-submit">Enviar reserva</button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__col">
+        <h3 class="footer__title">Contacto</h3>
+
+        <div class="footer__icons">
+          <a class="footer__iconLink" href="https://instagram.com/elmagomelo" target="_blank" rel="noopener">
+            <img src="instagram.png" alt="Instagram" class="footer__iconBig" />
+          </a>
+
+          <a class="footer__iconLink" href="https://wa.me/573245645231" target="_blank" rel="noopener">
+            <img src="whatsapp.png" alt="WhatsApp" class="footer__iconBig" />
+          </a>
+
+          <a class="footer__iconLink" href="mailto:elmagomelo23@gmail.com">
+            <img src="correo.png" alt="Email" class="footer__iconBig" />
+          </a>
+        </div>
+
+        <a class="footer__item" href="https://wa.me/573245645231" target="_blank" rel="noopener">
+          <img src="whatsapp.png" alt="WhatsApp" class="footer__icon-img" />
+          <span>+57 324 564 5231</span>
+        </a>
+
+        <a class="footer__item" href="https://instagram.com/elmagomelo" target="_blank" rel="noopener">
+          <img src="instagram.png" alt="Instagram" class="footer__icon-img" />
+          <span>@elmagomelo</span>
+        </a>
+
+        <a class="footer__item" href="mailto:elmagomelo23@gmail.com">
+          <img src="correo.png" alt="Email" class="footer__icon-img" />
+          <span>elmagomelo23@gmail.com</span>
+        </a>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__title">Más información</h3>
+        <a class="footer__link" href="sobre.html">SOBRE MI</a>
+        <a class="footer__link" href="portafolio.html">PORTAFOLIO</a>
+        <a class="footer__link" href="contacto.html">CONTACTO</a>
+        <a class="footer__link" href="reservas.html">RESERVAS</a>
+        <a class="footer__link" href="terminos.html" target="_blank" rel="noopener">TÉRMINOS Y CONDICIONES</a>
+      </div>
+
+      <div class="footer__col footer__col--logo">
+        <img class="footer__logo" src="logo.png" alt="Logo El Mago Melo" />
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2026 CamiloMelo. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+  
+  <button id="toTopBtn" class="to-top" type="button" aria-label="Volver arriba">
+    ↑
+    </button>
+
+            <!-- LOADER PRO (LOGO + ANILLO GIRANDO) -->
+  <div id="pageLoader" class="loader" aria-label="Cargando">
+    <div class="loaderPro">
+        <div class="loaderPro__ring" aria-hidden="true"></div>
+
+        <div class="loaderPro__logoWrap" aria-hidden="true">
+        <img src="logo.png" alt="El Mago Melo" class="loaderPro__logo">
+        </div>
+
+        <p class="loaderPro__text">Cargando...</p>
+    </div>
+    </div>
+
+  <script defer src="script.js"></script>
+  <script src="reservas.js"></script>
+</body>
+</html>
