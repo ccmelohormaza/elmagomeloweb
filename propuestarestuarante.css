@@ -249,6 +249,71 @@
   display: block;
 }
 
+
+
+/* =========================
+   GALERÍA DE VIDEOS VERTICALES
+========================= */
+.closeup-videos {
+  width: min(1280px, 94%);
+  margin: 40px auto;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 26px;
+}
+
+.video-card {
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.video-card video {
+  width: 100%;
+  aspect-ratio: 9 / 16; /* Forzar el formato vertical tipo Reel */
+  object-fit: cover;
+  background-color: #000;
+  display: block;
+}
+
+.video-card__info {
+  padding: 16px;
+  text-align: center;
+}
+
+.video-card__info h4 {
+  margin: 0;
+  font-family: "Bebas Neue", system-ui, sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+/* RESPONSIVE PARA VIDEOS */
+@media (max-width: 900px) {
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .video-grid {
+    grid-template-columns: 1fr; /* 1 sola columna en móviles */
+    max-width: 340px; /* Evita que el video vertical se vuelva gigante */
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* RESPONSIVE */
 @media (max-width: 1100px){
   .closeup-benefits__grid{
@@ -377,5 +442,168 @@
     font-size: 16px;
     padding: 14px 12px;
     vertical-align: top;
+  }
+}
+
+/* RESPONSIVE PARA LOS 6 VIDEOS */
+@media (max-width: 1024px) {
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr); /* 3 filas de 2 videos en tablets */
+    gap: 20px;
+  }
+}
+
+@media (max-width: 650px) {
+  .video-grid {
+    grid-template-columns: 1fr; /* 1 video por fila en móviles para no saturar */
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 24px;
+  }
+}
+
+
+
+/* =========================
+   CARRUSEL DE VIDEOS VERTICALES
+========================= */
+.closeup-videos {
+  width: min(1280px, 94%);
+  margin: 40px auto;
+  position: relative;
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 26px;
+}
+
+/* El riel donde se deslizan los videos */
+.video-carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 10px 5px 25px;
+  width: 100%;
+}
+
+/* Ocultar barra de scroll horrorosa en navegadores */
+.video-carousel::-webkit-scrollbar {
+  display: none; 
+}
+.video-carousel {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+/* Cada tarjeta de video adaptada para el carrusel */
+.video-card {
+  flex: 0 0 calc(33.333% - 14px); /* Muestra 3 videos en pantallas grandes */
+  scroll-snap-align: start;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.video-card video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background-color: #000;
+  display: block;
+}
+
+.video-card__info {
+  padding: 16px;
+  text-align: center;
+}
+
+.video-card__info h4 {
+  margin: 0;
+  font-family: "Bebas Neue", system-ui, sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+/* Estilos de las flechas */
+.carousel-btn {
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  top: calc(50% - 35px);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+  transform: scale(1.1);
+}
+
+.btn-prev {
+  left: -25px;
+}
+
+.btn-next {
+  right: -25px;
+}
+
+/* RESPONSIVE PARA EL CARRUSEL */
+@media (max-width: 900px) {
+  .video-card {
+    flex: 0 0 calc(50% - 10px); /* 2 videos por vista en tablets */
+  }
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  .btn-prev { left: -15px; }
+  .btn-next { right: -15px; }
+}
+
+@media (max-width: 650px) {
+  .video-card {
+    flex: 0 0 80%; /* Deja un margen para ver sutilmente el siguiente video */
+  }
+
+  /* Forzamos a que las flechas se sigan mostrando en móviles */
+  .carousel-btn {
+    display: flex !important; 
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.85); /* Un fondo más oscuro para que resalten */
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Las metemos un poco hacia adentro para que no se salgan de la pantalla del celular */
+  .btn-prev {
+    left: 5px;
+  }
+
+  .btn-next {
+    right: 5px;
   }
 }
