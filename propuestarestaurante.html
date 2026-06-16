@@ -79,6 +79,75 @@
       </div>
     </section>
 
+
+
+
+
+ <!-- Videos expreiencia   -->
+<section class="closeup-videos">
+      <div class="portfolio__header">
+        <h2 class="text-center">LA MAGIA EN ACCIÓN</h2>
+        <p class="text-center">Echa un vistazo a la experiencia en vivo y la reacción de los comensales.</p>
+      </div>
+
+      <div class="carousel-container">
+        <button class="carousel-btn btn-prev" id="prevBtn" aria-label="Anterior">❮</button>
+
+        <div class="video-carousel" id="videoCarousel">
+          <div class="video-card">
+            <video src="video1PropuestaRestaurante.mp4" controls  preload="metadata"></video>
+            <div class="video-card__info"><h4>Video Restaurante Campestre Bosque y Cielo</h4></div>
+          </div>
+          <div class="video-card">
+            <video src="video2PropuestaRestaurante.mp4" controls  preload="metadata"></video>
+            <div class="video-card__info"><h4>Hipnosis en monk House </h4></div>
+          </div>
+          <div class="video-card">
+            <video src="video3PropuestaRestaurante.mp4" controls  preload="metadata"></video>
+            <div class="video-card__info"><h4>Magia en Monk Pererira </h4></div>
+          </div>
+          <div class="video-card">
+            <video src="video4PropuestaRestaurante.mp4" controls  preload="metadata"></video>
+            <div class="video-card__info"><h4>Publicidad Monk House Popayan </h4></div>
+          </div>
+          <div class="video-card">
+            <video src="video5PropuestaRestaurante.mp4" controls  preload="metadata"></video>
+            <div class="video-card__info"><h4>Magia en Loro Azul </h4></div>
+          </div>
+          <div class="video-card">
+            <video src="video6PropuestaRestaurante.mp4" controls  preload="metadata"></video>
+            <div class="video-card__info"><h4>Magia en Monk Pereira </h4></div>
+          </div>
+        </div>
+
+        <button class="carousel-btn btn-next" id="nextBtn" aria-label="Siguiente">❯</button>
+      </div>
+    </section>
+
+<script>
+    const carousel = document.getElementById('videoCarousel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // Calcula cuánto debe desplazarse (el ancho de una carta de video)
+    const getScrollAmount = () => {
+      const card = carousel.querySelector('.video-card');
+      return card ? card.clientWidth + 20 : 300; // 20px es el gap
+    };
+
+    nextBtn.addEventListener('click', () => {
+      carousel.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+    });
+
+    prevBtn.addEventListener('click', () => {
+      carousel.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+    });
+  </script>
+
+
+
+
+
     <!-- Introducción: ¿Qué es este servicio? -->
     <section class="closeup-cta" id="contacto-cierre">
       <div class="cuadro closeup-cta__box">
@@ -242,3 +311,4 @@
 
 </body>
 </html>
+
