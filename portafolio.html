@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="keywords" content="mago,popayan,portafolio,magia close up,recreacion,melo,shows de magia">
+    <meta property="og:title" content="Portafolio de Shows | Camilo El Mago Melo">
+    <meta property="og:description" content="Explora el portafolio de shows de magia de cerca, close-up en mesa, salón, eventos corporativos y propuestas de matrimonio.">
+    <meta property="og:image" content="img/logo.webp">
+    <title>Portafolio | El Mago Melo</title>
+
+    <link rel="icon" href="img/logo.webp" type="image/webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Estilos globales del sitio + Estilos de tarjetas y modal -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/paquetes.css">
+
+    <!-- Ajustes extra para experiencia fluida en celular -->
+    <style>
+        .pkg-modal__box {
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+
+        .filter-btn,
+        .duration-pill,
+        .pkg-modal__close {
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        @media (max-width: 600px) {
+            .packages-filters {
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 10px 14px;
+                font-size: 13px;
+                flex: 1 1 calc(50% - 8px);
+            }
+
+            .pkg-card {
+                padding: 22px 18px;
+            }
+
+            .pkg-card__title {
+                font-size: 28px;
+            }
+
+            .pkg-modal {
+                padding: 10px;
+            }
+
+            .pkg-modal__priceBox .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER COMPLETO DEL SITIO -->
+    <header class="topbar">
+        <div class="topbar__inner">
+            <a class="brand" href="index.html">
+                <img src="img/logo.webp" alt="Logo El Mago Melo" class="brand__logo">
+            </a>
+
+            <button class="nav__toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+                ☰
+            </button>
+
+            <nav class="menu" id="menu">
+                <a href="" class="menu__link">INICIO</a>
+                <a href="" class="menu__link">SOBRE MI</a>
+                <a href="portafolio.html" class="menu__link active">PORTAFOLIO</a>
+                <a href="" class="menu__link">RESERVAS</a>
+                <a href="" class="menu__link">CONTACTO</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main">
+        <section class="hero">
+            <div class="hero__card">
+                <div class="packages-container">
+
+                    <div class="packages-header">
+                        <h1>Portafolio de Shows</h1>
+                        <p class="packages-subtitle">
+                            Explora nuestras experiencias mágicas. Haz clic sobre cualquier show para ver
+                            muestras, detalles completos y elegir la duración ideal para tu evento.
+                        </p>
+
+                        <!-- Filtros por categoría -->
+                        <div class="packages-filters" role="tablist" aria-label="Filtrar shows del portafolio">
+                            <button type="button" class="filter-btn active" data-filter="todos">Todos</button>
+                            <button type="button" class="filter-btn" data-filter="infantil">Infantil</button>
+                            <button type="button" class="filter-btn" data-filter="adultos">Adultos</button>
+                            <button type="button" class="filter-btn" data-filter="especial">Corporativo y Especiales</button>
+                        </div>
+                    </div>
+
+                    <!-- Grilla de tarjetas cliqueables -->
+                    <div class="packages-grid" id="packagesGrid"></div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL DE DETALLE (Video, Imagen o Solo Texto) -->
+    <div class="pkg-modal" id="pkgModal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="pkg-modal__backdrop" id="pkgModalBackdrop"></div>
+
+        <div class="pkg-modal__box">
+            <button type="button" class="pkg-modal__close" id="pkgModalClose" aria-label="Cerrar ventana">✕</button>
+
+            <!-- CONTENEDOR MULTIMEDIA SUPERIOR: Se oculta automáticamente si no hay video ni imagen -->
+            <div class="pkg-modal__mediaWrap" id="modalMediaWrap" style="display: none;">
+                <video id="modalVideo" class="pkg-modal__video" playsinline webkit-playsinline controls preload="metadata" style="display: none;"></video>
+                <img id="modalImage" class="pkg-modal__image" src="" alt="" style="display: none;">
+                <span class="pkg-modal__mediaTag" id="modalMediaTag">Muestra del show</span>
+            </div>
+
+            <!-- CUERPO DE DESCRIPCIÓN Y TARIFAS -->
+            <div class="pkg-modal__body">
+                <div class="pkg-modal__badges">
+                    <span class="pkg-badge" id="modalCapacity"></span>
+                </div>
+
+                <h2 class="pkg-modal__title" id="modalTitle"></h2>
+                <p class="pkg-modal__desc" id="modalDesc"></p>
+
+                <div class="pkg-modal__durations">
+                    <span class="pkg-modal__label">Selecciona la duración del show:</span>
+                    <div class="duration-pills" id="modalDurations"></div>
+                </div>
+
+                <div class="pkg-modal__priceBox">
+                    <div>
+                        <span class="pkg-modal__priceLabel" id="modalPriceType">Inversión del show</span>
+                        <div class="pkg-modal__price" id="modalPrice">$380.000</div>
+                    </div>
+                    <a href="#" id="modalWhatsappBtn" target="_blank" rel="noopener" class="btn">
+                        RESERVAR SHOW
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer__inner">
+            <div class="footer__col">
+                <h3 class="footer__title">Contacto</h3>
+
+                <div class="footer__icons">
+                    <a class="footer__iconLink" href="https://instagram.com/elmagomelo" target="_blank" rel="noopener">
+                        <img src="img/instagram.webp" alt="Instagram" class="footer__iconBig">
+                    </a>
+                    <a class="footer__iconLink" href="https://wa.me/573245645231" target="_blank" rel="noopener">
+                        <img src="img/whatsapp.webp" alt="WhatsApp" class="footer__iconBig">
+                    </a>
+                    <a class="footer__iconLink" href="mailto:elmagomelo23@gmail.com">
+                        <img src="img/correo.webp" alt="Email" class="footer__iconBig">
+                    </a>
+                </div>
+
+                <a class="footer__item" href="https://wa.me/573245645231" target="_blank" rel="noopener">
+                    <img src="img/whatsapp.webp" alt="WhatsApp" class="footer__icon-img">
+                    <span>+57 324 564 5231</span>
+                </a>
+                <a class="footer__item" href="https://instagram.com/elmagomelo" target="_blank" rel="noopener">
+                    <img src="img/instagram.webp" alt="Instagram" class="footer__icon-img">
+                    <span>@elmagomelo</span>
+                </a>
+                <a class="footer__item" href="mailto:elmagomelo23@gmail.com">
+                    <img src="img/correo.webp" alt="Email" class="footer__icon-img">
+                    <span>elmagomelo23@gmail.com</span>
+                </a>
+            </div>
+
+            <div class="footer__col">
+                <h3 class="footer__title">Más información</h3>
+                <a class="footer__link" href="sobre.html">SOBRE MI</a>
+                <a class="footer__link" href="portafolio.html">PORTAFOLIO</a>
+                <a class="footer__link" href="contacto.html">CONTACTO</a>
+                <a class="footer__link" href="reservas.html">RESERVAS</a>
+                <a class="footer__link" href="terminos.html" target="_blank" rel="noopener">TÉRMINOS Y CONDICIONES</a>
+            </div>
+
+            <div class="footer__col footer__col--logo">
+                <img class="footer__logo" src="img/logo.webp" alt="Logo El Mago Melo">
+            </div>
+        </div>
+
+        <div class="footer__bottom">
+            <p>© 2026 CamiloMelo. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <button id="toTopBtn" class="to-top" type="button" aria-label="Volver arriba">↑</button>
+
+    <!-- Tu script global (menú móvil y botón subir) -->
+    <script defer src="js/script.js"></script>
+
+    <!-- Lógica del portafolio -->
+    <script>
+        /* =====================================================================
+           CONFIGURA AQUÍ LOS SHOWS DE TU PORTAFOLIO:
+           - Para mostrar VIDEO: pon la ruta en "video" (ej: "videos/show1.mp4")
+           - Para mostrar IMAGEN: deja video: "" y pon la ruta en "imagen" (ej: "img/foto1.webp")
+           - Para SOLO TEXTO: deja ambos vacíos -> video: "" e imagen: ""
+           - Los formatos están ordenados del precio más alto al más bajo.
+        ===================================================================== */
+        const PORTAFOLIO_DATA = [
+            {
+                id: 1,
+                categoria: "infantil",
+                titulo: "1) Show de Magia Infantil",
+                capacidad: "Máx. 60 niños",
+                resumen: "Show de salón lleno de magia, comedia y mentalismo infantil para celebraciones con niños y toda la familia.",
+                descripcion: "Una divertida experiencia de magia de salón diseñada para eventos infantiles y celebraciones en familia, como cumpleaños, primeras comuniones o reuniones especiales. Todos los invitados se reúnen alrededor del mago para reír, participar y pasar al frente como sus asistentes (requiere el acompañamiento de mínimo dos adultos responsables). Combinando ilusionismo visual, comedia y mentalismo infantil, el espectáculo divierte tanto a los niños como a los adultos presentes; además, si el evento tiene un homenajeado especial, brilla como el asistente estrella y recibe al final una carta mágica de regalo. (Próximamente: ¡globoflexia!)",
+                video: "",      // Ej: "videos/infantil-general.mp4"
+                imagen: "",     // Ej: "img/infantil-general.webp"
+                poster: "",
+                formatos: [
+                    { tiempo: "45 - 60 min", precio: 380000 },
+                    { tiempo: "20 - 30 min", precio: 250000 },
+                    { tiempo: "15 - 20 min", precio: 150000 }
+                ]
+            },
+            {
+                id: 2,
+                categoria: "adultos",
+                titulo: "2) Magia Close-Up ",
+                capacidad: "Máx. 40 personas",
+                resumen: "Espectáculo de magia de cerca realizado sobre una mesa para grupos de hasta 40 personas, con participación constante y asombro en primera fila.",
+                descripcion: "Una experiencia envolvente de magia de cerca realizada directamente sobre una mesa para reuniones y celebraciones de hasta 40 personas. El público se reúne alrededor de la mesa para vivir de primera mano efectos imposibles de cartomagia, numismagia, mentalismo y comedia elegante a pocos centímetros de sus ojos, logrando una interacción cercana y memorable con todos los asistentes.",
+                video: "",      // Ej: "videos/closeup-mesa.mp4"
+                imagen: "",     // Ej: "img/closeup-mesa.webp"
+                poster: "",
+                formatos: [
+                    { tiempo: "45 - 60 min", precio: 350000 },
+                    { tiempo: "20 - 30 min", precio: 250000 },
+                    { tiempo: "15 - 20 min", precio: 150000 }
+                ]
+            },
+            {
+                id: 3,
+                categoria: "adultos",
+                titulo: "3) Cumpleaños Adultos – Magia de Salón",
+                capacidad: "Todo el salón / Familiar",
+                resumen: "Show dinámico para todo el salón que mezcla magia, comedia, mentalismo y toques de hipnosis para celebrar en familia.",
+                descripcion: "El espectáculo ideal para festejar celebraciones especiales junto a toda la familia. Un show dinámico diseñado para cautivar a todo el salón que mezcla magia, comedia, mentalismo y toques de hipnosis, garantizando risas y asombro en cada momento. Como cierre especial para el festejado, incluye una carta mágica de regalo y la opción de hacer aparecer un obsequio adicional para sorprenderlo.",
+                video: "",      // Ej: "videos/adultos-salon.mp4"
+                imagen: "",     // Ej: "img/adultos-salon.webp"
+                poster: "",
+                formatos: [
+                    { tiempo: "45 - 60 min", precio: 380000 },
+                    { tiempo: "20 - 30 min", precio: 250000 },
+                    { tiempo: "15 - 20 min", precio: 150000 }
+                ]
+            },
+            {
+                id: 4,
+                categoria: "especial",
+                titulo: "4) Evento Corporativo",
+                capacidad: "Empresas e Integraciones",
+                resumen: "Espectáculo profesional adaptado a tu empresa para lanzamientos, aniversarios o jornadas de integración.",
+                descripcion: "Un espectáculo profesional de magia de salón diseñado a la medida de tu empresa para convertir celebraciones de fin de año, aniversarios, lanzamientos o jornadas de integración en una experiencia fuera de lo común. Combinando ilusionismo de alto impacto, mentalismo y humor elegante, el show rompe el hielo, une a los equipos y hace participar de forma respetuosa y divertida a colaboradores y directivos. Además, se adapta al mensaje o temática del evento con la opción de personalizar un acto mágico para resaltar los valores de la marca o revelar un obsequio especial.",
+                video: "",      // Ej: "videos/corporativo.mp4"
+                imagen: "",     // Ej: "img/corporativo.webp"
+                poster: "",
+                formatos: [
+                    { tiempo: "45 - 60 min", precio: 400000 },
+                    { tiempo: "20 - 30 min", precio: 280000 },
+                    { tiempo: "15 - 20 min", precio: 160000 }
+                ]
+            },
+            {
+                id: 5,
+                categoria: "especial",
+                titulo: "5) Propuesta de Matrimonio",
+                capacidad: "Especial Romántico",
+                resumen: "Pedida de mano sorpresa con magia de anillos, cartas fusionadas y revelación final del show.",
+                descripcion: "Convierte el gran momento en una escena inolvidable con una pedida de mano llena de ilusión. El mago se acerca de forma espontánea, comenzando con juegos ligeros para romper el hielo y dando paso a una rutina romántica con cartas y anillos. En el clímax del show, escribes tu propuesta en una carta que se fusiona mágicamente con su respuesta, un mensaje especial o los nombres de ambos, revelándole al final que todo ese espectáculo fue preparado exclusivamente para ese instante.",
+                video: "",      // Ej: "videos/propuesta-matrimonio.mp4"
+                imagen: "",     // Ej: "img/propuesta-matrimonio.webp"
+                poster: "",
+                formatos: [
+                    { tiempo: "20 - 30 min (Formato único)", precio: 200000 }
+                ]
+            }
+        ];
+
+        const formatCOP = (valor) => "$" + valor.toLocaleString("es-CO");
+
+        let filtroActual = "todos";
+        let showActivo = null;
+        let formatoIndexActivo = 0;
+
+        const gridEl = document.getElementById("packagesGrid");
+        const modalEl = document.getElementById("pkgModal");
+        const modalMediaWrap = document.getElementById("modalMediaWrap");
+        const modalVideo = document.getElementById("modalVideo");
+        const modalImage = document.getElementById("modalImage");
+        const modalMediaTag = document.getElementById("modalMediaTag");
+
+        function renderCards() {
+            gridEl.innerHTML = "";
+            const filtrados = filtroActual === "todos"
+                ? PORTAFOLIO_DATA
+                : PORTAFOLIO_DATA.filter(p => p.categoria === filtroActual);
+
+            filtrados.forEach(item => {
+                // Muestra primero el precio más costoso (posición 0)
+                const precioPrincipal = item.formatos[0].precio;
+                const tieneVideo = Boolean(item.video && item.video.trim() !== "");
+                const tieneImagen = Boolean(item.imagen && item.imagen.trim() !== "");
+
+                let mediaBadgeHTML = "";
+                if (tieneVideo) {
+                    mediaBadgeHTML = '<span class="pkg-badge pkg-badge--media">▶ VIDEO</span>';
+                } else if (tieneImagen) {
+                    mediaBadgeHTML = '<span class="pkg-badge pkg-badge--media">📷 FOTO</span>';
+                }
+
+                const card = document.createElement("article");
+                card.className = "pkg-card";
+                card.tabIndex = 0;
+                card.setAttribute("role", "button");
+                card.setAttribute("aria-label", `Ver detalles de ${item.titulo}`);
+
+                card.innerHTML = `
+                    <div class="pkg-card__top">
+                        <span class="pkg-badge">${item.capacidad}</span>
+                        ${mediaBadgeHTML}
+                    </div>
+                    <h3 class="pkg-card__title">${item.titulo}</h3>
+                    <p class="pkg-card__summary">${item.resumen}</p>
+                    <div class="pkg-card__footer">
+                        <div class="pkg-card__priceGroup">
+                            <span class="pkg-card__from">${item.formatos.length > 1 ? 'Show completo' : 'Valor'}</span>
+                            <span class="pkg-card__price">${formatCOP(precioPrincipal)}</span>
+                        </div>
+                        <span class="pkg-card__cta">Ver más →</span>
+                    </div>
+                `;
+
+                card.addEventListener("click", () => abrirModal(item));
+                card.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        abrirModal(item);
+                    }
+                });
+
+                gridEl.appendChild(card);
+            });
+        }
+
+        function limpiarMultimediaModal() {
+            modalVideo.pause();
+            modalVideo.removeAttribute("src");
+            modalVideo.removeAttribute("poster");
+            modalVideo.style.display = "none";
+
+            modalImage.removeAttribute("src");
+            modalImage.alt = "";
+            modalImage.style.display = "none";
+
+            modalMediaWrap.style.display = "none";
+        }
+
+        function abrirModal(item) {
+            showActivo = item;
+            formatoIndexActivo = 0; // Inicia en el formato de mayor valor
+
+            document.getElementById("modalCapacity").textContent = item.capacidad;
+            document.getElementById("modalTitle").textContent = item.titulo;
+            document.getElementById("modalDesc").textContent = item.descripcion;
+
+            limpiarMultimediaModal();
+
+            const tieneVideo = Boolean(item.video && item.video.trim() !== "");
+            const tieneImagen = Boolean(item.imagen && item.imagen.trim() !== "");
+
+            if (tieneVideo) {
+                modalMediaWrap.style.display = "block";
+                modalVideo.style.display = "block";
+                modalMediaTag.textContent = "Video del show";
+                modalVideo.src = item.video;
+                if (item.poster && item.poster.trim() !== "") {
+                    modalVideo.poster = item.poster;
+                }
+                modalVideo.load();
+            } else if (tieneImagen) {
+                modalMediaWrap.style.display = "block";
+                modalImage.style.display = "block";
+                modalMediaTag.textContent = "Foto del show";
+                modalImage.src = item.imagen;
+                modalImage.alt = item.titulo;
+            }
+
+            renderDuracionesModal();
+            actualizarPrecioModal();
+
+            modalEl.classList.add("is-open");
+            modalEl.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        }
+
+        modalImage.addEventListener("error", limpiarMultimediaModal);
+        modalVideo.addEventListener("error", limpiarMultimediaModal);
+
+        function cerrarModal() {
+            modalEl.classList.remove("is-open");
+            modalEl.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+            limpiarMultimediaModal();
+        }
+
+        function renderDuracionesModal() {
+            const container = document.getElementById("modalDurations");
+            container.innerHTML = "";
+
+            showActivo.formatos.forEach((fmt, idx) => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "duration-pill" + (idx === formatoIndexActivo ? " active" : "");
+                btn.textContent = fmt.tiempo;
+                btn.addEventListener("click", () => {
+                    formatoIndexActivo = idx;
+                    renderDuracionesModal();
+                    actualizarPrecioModal();
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        function actualizarPrecioModal() {
+            const fmt = showActivo.formatos[formatoIndexActivo];
+            const precio = fmt.precio;
+
+            document.getElementById("modalPriceType").textContent = `Inversión del show (${fmt.tiempo})`;
+            document.getElementById("modalPrice").textContent = formatCOP(precio);
+
+            const textoWa = encodeURIComponent(
+                `Hola Camilo, vi tu portafolio y me interesa reservar el show "${showActivo.titulo}" en formato ${fmt.tiempo} (${formatCOP(precio)}).`
+            );
+            document.getElementById("modalWhatsappBtn").href = `https://wa.me/573245645231?text=${textoWa}`;
+        }
+
+        document.querySelectorAll(".filter-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                filtroActual = btn.dataset.filter;
+                renderCards();
+            });
+        });
+
+        document.getElementById("pkgModalClose").addEventListener("click", cerrarModal);
+        document.getElementById("pkgModalBackdrop").addEventListener("click", cerrarModal);
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modalEl.classList.contains("is-open")) cerrarModal();
+        });
+
+        // Respaldo para menú móvil en celular por si js/script.js no se ha cargado
+        window.addEventListener("DOMContentLoaded", () => {
+            const navToggle = document.getElementById("navToggle");
+            const menu = document.getElementById("menu");
+            if (navToggle && menu && !navToggle.dataset.bound) {
+                navToggle.dataset.bound = "true";
+                navToggle.addEventListener("click", () => {
+                    const isOpen = menu.classList.toggle("open");
+                    navToggle.setAttribute("aria-expanded", String(isOpen));
+                });
+            }
+        });
+
+        renderCards();
+    </script>
+</body>
+</html>
