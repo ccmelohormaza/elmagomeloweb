@@ -1,0 +1,393 @@
+/* =========================
+   PORTAFOLIO - TITULO
+========================= */
+
+.portfolio__content{
+  /* si quieres que el contenido quede centrado y con buen aire */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.portfolio__header{
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 40px;
+}
+
+/* =========================
+   PORTAFOLIO - SERVICIO
+========================= */
+/*contenedor de servicios*/
+
+.portfolio__services{
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+
+
+
+
+
+/* =========================
+   SERVICIO 
+========================= */
+
+/*contenedor*/
+
+.portfolio__service {
+  
+  display: flex;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+
+  
+  border-radius: 24px;
+  overflow: hidden; /* CLAVE para que la imagen respete el borde */
+  
+  border: 2px solid rgba(255, 255, 255, 0.35 );
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+
+/* video a la izquierda  */
+
+.service__media {
+  flex: 0 0  40%;
+  position: relative;
+  overflow: hidden;
+}
+
+.service__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*contenido a la derecha */ 
+.service__content {
+  flex : 1 ;
+  padding: 32px 36px;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.service__title{
+  text-align: center;
+  font-size: 30px;
+  line-height: 1.05;
+  margin: 0 0 10px;
+}
+
+
+
+
+.service__details{
+  margin-top: 24px;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: row;    
+  gap: 16px;
+
+  align-items: stretch;
+}
+
+
+
+.service__details li{
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.service__label{
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+}
+
+
+.service__cta{
+  margin-top: 22px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  justify-content: flex-start;
+  flex-wrap: wrap; /* por si se queda corto el espacio */
+}
+
+.service__info-item{
+  flex: 1 1 130px;
+  min-width: 130px;
+  min-height: 50px;
+  max-height: 50px;
+
+  padding: 5px 12px;
+  border-radius: 12px;
+
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.06);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.service__info-label{
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 4px;
+  
+}
+
+.service__info-value{
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #ffffff;
+  word-break: break-word;
+  white-space: normal;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* SERVICIO - BOTÓN RESERVA*/
+
+.service__button{
+  margin-top: 18px;
+  align-self: center;   /* a la derecha dentro del content */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px 34px;
+  border-radius: 12px;    /* más “cuadrado” que antes */
+
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+
+  color: #111;
+  background: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.service__button:hover{
+  background: rgba(255,255,255,0.85);
+  transform: translateY(-2px);
+}
+
+
+
+
+/* Active */
+.service__button:active {
+  transform: translateY(0);
+}
+
+.service__events{
+  margin-top: 8px;
+  margin-bottom: 12px; 
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+  max-width: 520px;
+}
+
+.service__infoRow{
+  margin-top: 10px;
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  flex-wrap: wrap; 
+}
+
+/* =========================
+   SERVICIO 9 (LABOR SOCIAL)
+   - Ocupa toda la fila (1 sola “fila” del grid)
+   - Mantiene izquierda/derecha
+   - Media izquierda en formato HORIZONTAL (16:9)
+========================= */
+
+.portfolio__service--full{
+  grid-column: 1 / -1;       /* ocupa las 2 columnas del grid */
+  align-items: flex-start;   /* evita que la media se estire con el texto */
+}
+
+/* más ancho el bloque de media */
+.portfolio__service--full .service__media{
+  flex: 0 0 55%;             /* ajusta: 50% / 60% si quieres */
+  position: relative;
+  overflow: hidden;
+}
+
+/* “ventana” horizontal 16:9 */
+.portfolio__service--full .service__media::before{
+  content: "";
+  display: block;
+  padding-top: 56.25%;       /* 9/16 = 56.25%  -> 16:9 */
+}
+
+/* el video/imagen rellena la ventana */
+.portfolio__service--full .service__media video,
+.portfolio__service--full .service__media img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* recorta para que siempre quede horizontal */
+  object-position: center;
+  display: block;
+}
+
+/* =========================
+   MOBILE (celulares)
+========================= */
+@media (max-width: 800px){
+
+  /* Título general del portafolio */
+  .portfolio__title{
+    font-size: 40px;
+    letter-spacing: 1px;
+  }
+
+  /* Catálogo en una sola columna */
+  .portfolio__services{
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 0 12px;
+  }
+
+  /* CARD en columna (grid) con el orden que pediste */
+  .portfolio__service{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "desc"
+      "events"
+      "boxes"
+      "media"
+      "button";
+  }
+
+  /* CLAVE: permite ordenar hijos sin tocar HTML */
+  .service__content{
+    display: contents;
+  }
+
+  /* 1) TÍTULO */
+  .service__title{
+    grid-area: title;
+    margin: 14px 16px 8px;
+    font-size: 30px;
+    line-height: 1.05;
+  }
+
+  /* 2) DESCRIPCIÓN */
+  .service__description{
+    grid-area: desc;
+    margin: 0 16px 10px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  /* 3) EVENTOS */
+  .service__events{
+    grid-area: events;
+    margin: 0 16px 12px;
+    font-size: 16px;
+    line-height: 1.45;
+    max-width: 100%;
+  }
+
+  /* 4) CUADROS */
+  .service__infoRow{
+    grid-area: boxes;
+    margin: 0 10px 10px;
+    gap: 5px;
+  }
+
+  .service__info-item{
+    flex: 1 1 calc(50% - 10px);
+    min-width: calc(50% - 10px);
+    min-height: 74px;
+    padding: 10px;
+  }
+
+  .service__info-label{
+    font-size: 9.5px;
+    margin: 0 0 3px;
+  }
+
+  .service__info-value{
+    font-size: 15px;
+  }
+
+  .service__info-item--price{
+    flex-basis: 100%;
+    min-width: 100%;
+  }
+
+  /* 5) VIDEO */
+  .service__media{
+    grid-area: media;
+    width: 100%;
+    height: clamp(320px, 55vh, 520px);
+    overflow: hidden;
+
+  }
+
+  .service__media video{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;   /* si quieres verlo “grande cobver se adapta a la caja pero queda recortado entonces contain ” */
+    display: block;
+    background: #000;
+    
+  }
+
+  /* 6) BOTÓN */
+  .service__button{
+    grid-area: button;
+    width: calc(100% - 32px);
+    margin: 14px 16px 16px;
+    font-size: 17px;
+    padding: 16px 18px;
+    justify-self: center;
+  }
+}

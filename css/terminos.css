@@ -1,0 +1,62 @@
+.cuadro{
+    box-sizing: border-box;
+    width: min(96%, 1100px);
+    margin: 40px auto;            /* 🔥 centrado real */
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+    padding: 32px;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    
+}
+
+/* =========================
+   TÉRMINOS Y CONDICIONES
+========================= */
+
+/* Título principal */
+h1{
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 6vw, 56px);
+  letter-spacing: 3px;
+  margin-bottom: 40px;
+}
+
+/* Subtítulos */
+h2{
+  text-align: center;          /* ✅ centrados */
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;             /* 🔽 más pequeño */
+  letter-spacing: 2px;
+  margin: 60px 0 18px;         /* aire arriba, compacto abajo */
+  color: #ffffff;
+}
+
+/* Párrafos */
+p{
+  max-width: 900px;            /* lectura cómoda */
+  margin: 0 auto 18px;         /* centrado visual */
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.9);
+}
+
+
+@media (max-width: 768px){
+  .cuadro{
+    margin: 24px auto;
+    padding: 22px 18px;
+    border-radius: 20px;
+  }
+
+  h2{
+    font-size: 22px;
+    margin: 42px 0 14px;
+  }
+
+  p{
+    font-size: 15px;
+  }
+}
