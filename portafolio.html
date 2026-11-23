@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/paquetes.css">
 
-    <!-- Ajustes extra para experiencia fluida en celular -->
+    <!-- Ajustes para precios visibles en tarjeta y experiencia fluida en celular -->
     <style>
         .pkg-modal__box {
             -webkit-overflow-scrolling: touch;
@@ -31,6 +31,52 @@
         .pkg-modal__close {
             min-height: 44px;
             touch-action: manipulation;
+        }
+
+        /* Lista de formatos y precios dentro de cada tarjeta */
+        .pkg-card__formats {
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+            padding-top: 14px;
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pkg-card__formatRow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .pkg-card__formatRow:hover {
+            background: rgba(255, 154, 31, 0.14);
+            border-color: #ff9a1f;
+        }
+
+        .pkg-card__formatTime {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .pkg-card__formatPrice {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px;
+            color: #ff9a1f;
+            letter-spacing: 0.8px;
+            line-height: 1;
+        }
+
+        .pkg-card__footer--simple {
+            border-top: none;
+            padding-top: 2px;
+            justify-content: flex-end;
         }
 
         @media (max-width: 600px) {
@@ -77,11 +123,11 @@
             </button>
 
             <nav class="menu" id="menu">
-                <a href="" class="menu__link">INICIO</a>
-                <a href="" class="menu__link">SOBRE MI</a>
+                <a href="index.html" class="menu__link">INICIO</a>
+                <a href="sobre.html" class="menu__link">SOBRE MI</a>
                 <a href="portafolio.html" class="menu__link active">PORTAFOLIO</a>
-                <a href="" class="menu__link">RESERVAS</a>
-                <a href="" class="menu__link">CONTACTO</a>
+                <a href="reservas.html" class="menu__link">RESERVAS</a>
+                <a href="contacto.html" class="menu__link">CONTACTO</a>
             </nav>
         </div>
     </header>
@@ -95,8 +141,8 @@
                     <div class="packages-header">
                         <h1>Portafolio de Shows</h1>
                         <p class="packages-subtitle">
-                            Explora nuestras experiencias mágicas. Haz clic sobre cualquier show para ver
-                            muestras, detalles completos y elegir la duración ideal para tu evento.
+                            Explora nuestras experiencias mágicas. Haz clic sobre cualquier show o tarifa para ver
+                            muestras, detalles completos y reservar la duración ideal para tu evento.
                         </p>
 
                         <!-- Filtros por categoría -->
@@ -242,7 +288,7 @@
             {
                 id: 2,
                 categoria: "adultos",
-                titulo: "2) Magia Close-Up ",
+                titulo: "2) Magia Close-Up",
                 capacidad: "Máx. 40 personas",
                 resumen: "Espectáculo de magia de cerca realizado sobre una mesa para grupos de hasta 40 personas, con participación constante y asombro en primera fila.",
                 descripcion: "Una experiencia envolvente de magia de cerca realizada directamente sobre una mesa para reuniones y celebraciones de hasta 40 personas. El público se reúne alrededor de la mesa para vivir de primera mano efectos imposibles de cartomagia, numismagia, mentalismo y comedia elegante a pocos centímetros de sus ojos, logrando una interacción cercana y memorable con todos los asistentes.",
@@ -323,8 +369,6 @@
                 : PORTAFOLIO_DATA.filter(p => p.categoria === filtroActual);
 
             filtrados.forEach(item => {
-                // Muestra primero el precio más costoso (posición 0)
-                const precioPrincipal = item.formatos[0].precio;
                 const tieneVideo = Boolean(item.video && item.video.trim() !== "");
                 const tieneImagen = Boolean(item.imagen && item.imagen.trim() !== "");
 
@@ -334,6 +378,14 @@
                 } else if (tieneImagen) {
                     mediaBadgeHTML = '<span class="pkg-badge pkg-badge--media">📷 FOTO</span>';
                 }
+
+                // Genera una fila por cada duración y precio (ordenados de mayor a menor)
+                const formatosHTML = item.formatos.map((fmt, idx) => `
+                    <div class="pkg-card__formatRow" data-format-idx="${idx}">
+                        <span class="pkg-card__formatTime">⏱ ${fmt.tiempo}</span>
+                        <span class="pkg-card__formatPrice">${formatCOP(fmt.precio)}</span>
+                    </div>
+                `).join("");
 
                 const card = document.createElement("article");
                 card.className = "pkg-card";
@@ -348,20 +400,24 @@
                     </div>
                     <h3 class="pkg-card__title">${item.titulo}</h3>
                     <p class="pkg-card__summary">${item.resumen}</p>
-                    <div class="pkg-card__footer">
-                        <div class="pkg-card__priceGroup">
-                            <span class="pkg-card__from">${item.formatos.length > 1 ? 'Show completo' : 'Valor'}</span>
-                            <span class="pkg-card__price">${formatCOP(precioPrincipal)}</span>
-                        </div>
+                    <div class="pkg-card__formats">
+                        ${formatosHTML}
+                    </div>
+                    <div class="pkg-card__footer pkg-card__footer--simple">
                         <span class="pkg-card__cta">Ver más →</span>
                     </div>
                 `;
 
-                card.addEventListener("click", () => abrirModal(item));
+                card.addEventListener("click", (e) => {
+                    const row = e.target.closest(".pkg-card__formatRow");
+                    const idxSeleccionado = row ? Number(row.dataset.formatIdx) : 0;
+                    abrirModal(item, idxSeleccionado);
+                });
+
                 card.addEventListener("keydown", (e) => {
                     if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
-                        abrirModal(item);
+                        abrirModal(item, 0);
                     }
                 });
 
@@ -382,9 +438,9 @@
             modalMediaWrap.style.display = "none";
         }
 
-        function abrirModal(item) {
+        function abrirModal(item, formatoInicial = 0) {
             showActivo = item;
-            formatoIndexActivo = 0; // Inicia en el formato de mayor valor
+            formatoIndexActivo = formatoInicial;
 
             document.getElementById("modalCapacity").textContent = item.capacidad;
             document.getElementById("modalTitle").textContent = item.titulo;
